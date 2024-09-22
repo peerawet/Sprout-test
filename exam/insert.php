@@ -10,25 +10,16 @@
 <body>
 
     <?php
-    include('DbConnect.php');
+    include('UsersModel.php');
 
 
     if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         $name = $_POST['name'];
         $tel = $_POST['tel'];
 
-        $singleton = DbConnect::getInstance();
+        $model = new UsersModel;
 
-        $stmt = $singleton->prepare("INSERT INTO users (name, tel) VALUES (:name, :tel)");
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':tel', $tel);
-
-        // Execute the statement
-        if ($stmt->execute()) {
-            echo '<script>alert("Data inserted successfully")</script>';
-        } else {
-            echo '<script>alert("Failed to insert data")</script>';
-        }
+        $model->postUser($name, $tel);
     }
     ?>
 
